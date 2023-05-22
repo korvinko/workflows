@@ -1,0 +1,20 @@
+{
+  "name": "twojstartup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "integrations/twojstartup/login.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "run": "npm run build && node index.js -t addContract"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^10.0.1",
+    "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
+    "puppeteer": "^20.1.1",
+    "typescript": "^5.0.4"
+  }
+}
