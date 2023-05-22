@@ -1,0 +1,28 @@
+{
+  "name": "twojstartup",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "integrations/twojstartup/login.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "invoice": "npm run build && node index.js -t addInvoice",
+    "contract": "npm run build && node index.js -t addContract",
+    "bill": "npm run build && node index.js -t addBill",
+    "code": "npm run build && node index.js -t generateCode",
+    "pdf": "npm run build && node index.js -t printPdf"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chatgpt": "^5.2.4",
+    "commander": "^10.0.1",
+    "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
+    "openai": "^3.2.1",
+    "pdfkit": "^0.13.0",
+    "puppeteer": "^20.1.1",
+    "typescript": "^5.0.4"
+  }
+}
