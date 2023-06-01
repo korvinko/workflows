@@ -1,5 +1,5 @@
 import * as puppeteer from "puppeteer";
-import {pages} from "../../pages";
+import {pages} from "../../pages.js";
 
 export async function login(): Promise<puppeteer.Browser> {
 	const options = {

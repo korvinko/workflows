@@ -1,3 +1,7 @@
 export enum actions {
-	addContract = "addContract"
+	addInvoice = "addInvoice",
+	addContract = "addContract",
+	addBill = "addBill",
+	generateCode = "generateCode",
+	printPdf = "printPdf",
 }

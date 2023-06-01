@@ -1,7 +1,6 @@
-import {login} from "./login";
-import {pages} from "../../pages";
-import * as moment from "moment";
+import {pages} from "../../pages.js";
 import * as puppeteer from "puppeteer";
+import moment from "moment";
 
 export async function createContract(browser: puppeteer.Browser): Promise<boolean> {
 	const page = await browser.newPage();

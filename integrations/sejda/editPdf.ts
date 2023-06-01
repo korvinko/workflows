@@ -1,4 +1,4 @@
-import {pages} from "../../pages";
+import {pages} from "../../pages.js";
 import * as puppeteer from "puppeteer";
 
 export async function editPDF(browser: puppeteer.Browser, pdfFile: string): Promise<boolean> {
