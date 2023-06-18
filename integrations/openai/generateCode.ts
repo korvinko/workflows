@@ -59,11 +59,11 @@ export async function fetchGptResponse(prompt) {
     }
 
     for (let index in files) {
-        if (index <= lastHandledIndex) {
+        if (+index <= +lastHandledIndex) {
             continue;
         }
 
-        const res = await generateFile(api, files[index], lastResponseId);
+        let res = await generateFile(api, files[index], lastResponseId);
         lastResponseId = res.id;
         lastHandledIndex = index;
         fs.writeFile(lastResponseIdPath, res.id, (err) => {
@@ -81,6 +81,19 @@ export async function fetchGptResponse(prompt) {
             }
         });
         console.log(res.id)
+
+        res = await generateTestFile(api, files[index], lastResponseId);
+        if (res !== undefined) {
+            fs.writeFile(lastResponseIdPath, res.id, (err) => {
+                if (err) {
+                    console.error('Error creating file:', err);
+                } else {
+                    console.log('File created successfully.');
+                }
+            });
+
+            console.log(res.id)
+        }
     }
 }
 
@@ -103,6 +116,51 @@ export async function generateFile(api: ChatGPTAPI, file: string, parentId: stri
         parsedCode = matches[1].trim();
     } else {
         console.error("No code block found.");
+    }
+
+    const filePath = `${codeFolder}/${file}`;
+    const parentFolder = path.dirname(filePath);
+    if (!fs.existsSync(parentFolder)) {
+        fs.mkdirSync(parentFolder, { recursive: true });
+    }
+
+    fs.writeFile(filePath, parsedCode, (err) => {
+        if (err) {
+            console.error('Error creating file:', err);
+        } else {
+            console.log('File created successfully.');
+        }
+    });
+
+    return res;
+}
+
+export async function generateTestFile(api: ChatGPTAPI, file: string, parentId: string): Promise<ChatMessage> {
+    if (file.indexOf(".go") === -1) {
+        return undefined;
+    }
+
+    file = file.replace(".go", "_test.go")
+
+    const promt = `show me the whole implementation of test for the file ${file} without unimplemented places`;
+
+    console.log(promt)
+    console.log(parentId)
+
+    const res = await api.sendMessage(promt, {
+        parentMessageId: parentId,
+    })
+    console.log(res.text)
+
+    const regex = /```(?:[^`\n]+)?\n([\s\S]+?)\n```/g;
+    const matches = regex.exec(res.text);
+    let parsedCode;
+
+    if (matches) {
+        parsedCode = matches[1].trim();
+    } else {
+        console.warn("No test code block found.");
+        return undefined;
     }
 
     const filePath = `${codeFolder}/${file}`;

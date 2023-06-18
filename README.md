@@ -58,6 +58,7 @@ TS_CONTRACT_MONTH=03
 TS_CONTRACT_SUBJECT=Stworzenie autorskiego kodu źródłowego w języku XXX dla aplikacji "YYY"
 TS_BROWSER=/snap/bin/chromium
 TS_DOWNLOAD_PATH=/home/user/Downloads/
+TS_CODE_HTML_FOLDER=/home/user/code_in_html_output
 OPENAI_API_KEY=sk-1derHS11IdYobr7Aw2dTaWBlbkFJCtWREXcElo8QgdrOO16a
 TS_PROMT_TEXT=Creating source code in XXX for the "XXX" module for the "XXX" mobile application.\nIt must be completed application with no less then 50 pages of code in A4.\nIt can be code, gRPC schema, services, models, tests, mongodb migration and so on.\nApplication should follow DDD principle and have isolation between layers.\nIn main file use dependency injection uber-go/fx.\nIt must have prometheus metrics, go tests and http router, grpc handler, code for tracing.\nStart from providing me the whole list of files of this application.\nPlease generate structure with more than 40 files.\n
 ```

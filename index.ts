@@ -61,7 +61,7 @@ switch (task) {
         break;
     }
     case actions.printPdf: {
-        generatePDFFromHTML("/home/korvinko/Projects/workflows/exportToHTML")
+        generatePDFFromHTML(process.env.TS_CODE_HTML_FOLDER);
         break;
     }
     default: {
