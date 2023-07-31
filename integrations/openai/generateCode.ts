@@ -22,6 +22,12 @@ export async function fetchGptResponse(prompt) {
         lastResponseId = fs.readFileSync(lastResponseIdPath).toString('utf8');
     } catch (e) {}
 
+    if (lastHandledIndex && files && +lastHandledIndex >= files.length-1) {
+        lastHandledIndex = undefined;
+        files = undefined;
+        lastResponseId = undefined;
+    }
+
     if (!files || !lastHandledIndex || !lastResponseId) {
         // send a message and wait for the response
         let res = await api.sendMessage(prompt)
