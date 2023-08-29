@@ -12,3 +12,13 @@ export async function selectOptionByText(page: Page, selector: string, text: str
 
     await page.select(selector, optionValue);
 }
+
+export async function clickAndWaitForNavigation(page: Page, selector: string, silent: boolean): Promise<any> {
+    const promises = [];
+    if (silent) {
+        promises.push(page.click(selector));
+    }
+    promises.push(page.waitForNavigation({timeout: 1000 * 60 * 5}));
+
+    return Promise.all(promises);
+}

@@ -1,19 +1,19 @@
 import {pages} from "../../pages.js";
 import * as puppeteer from "puppeteer";
+import {clickAndWaitForNavigation} from "../../helpers/selector.js";
 
-export async function createBill(browser: puppeteer.Browser): Promise<boolean> {
+export async function createBill(browser: puppeteer.Browser, silent: boolean): Promise<boolean> {
 	const page = await browser.newPage();
 
 	await page.goto(pages.billsAddURL);
 	await page.waitForSelector('.ibox-content');
 
-	await Promise.all([
-		await page.waitForFunction(() => {
-			const element = document.querySelector('#bill-type') as HTMLFormElement;
-			return element !== null && element.value !== '';
-		}),
-		page.click('#bill_form_submit'),
-	]);
+	await page.waitForFunction(() => {
+		const element = document.querySelector('#bill-type') as HTMLFormElement;
+		return element !== null && element.value !== '';
+	})
+
+	await clickAndWaitForNavigation(page, '$bill_form_submit', silent);
 
 	return true;
 }

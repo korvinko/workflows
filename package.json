@@ -11,7 +11,12 @@
     "contract": "npm run build && node index.js -t addContract",
     "bill": "npm run build && node index.js -t addBill",
     "code": "npm run build && node index.js -t generateCode",
-    "pdf": "npm run build && node index.js -t printPdf"
+    "pdf": "npm run build && node index.js -t printPdf",
+    "invoice_silent": "npm run build && node index.js -s -t addInvoice",
+    "contract_silent": "npm run build && node index.js -s -t addContract",
+    "bill_silent": "npm run build && node index.js -s -t addBill",
+    "code_silent": "npm run build && node index.js -s -t generateCode",
+    "pdf_silent": "npm run build && node index.js -s -t printPdf"
   },
   "author": "",
   "license": "ISC",

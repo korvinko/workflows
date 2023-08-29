@@ -16,16 +16,18 @@ config({ prefix: 'TS' } as any);
 program
     .version('0.1.0')
     .description('CLI application for automation interaction with CRM of TwojStartup')
-    .option('-t, --task <char>', 'Select task')
+    .option('-t, --task <string>', 'Select task')
+    .option('-s, --silent', 'Finish task automatically', false)
     .parse(process.argv);
 
 program.parse();
 const task = program.opts().task as actions;
+const silent = program.opts().silent as boolean;
 
 switch (task) {
     case actions.addInvoice: {
         login().then(browser => {
-            createInvoice(browser).then(_ => {
+            createInvoice(browser, silent).then(_ => {
                 downloadLastInvoice(browser).then(pdfFile => {
                     // sendItToReview(browser, pdfFile);
                 });
@@ -35,20 +37,20 @@ switch (task) {
     }
     case actions.addContract: {
         login().then(browser => {
-            createContract(browser).then(_ => {
-                downloadLastContract(browser).then(pdfFile => {
-                    editPDF(browser, pdfFile);
-                });
+            createContract(browser, silent).then(_ => {
+                // downloadLastContract(browser).then(pdfFile => {
+                //     editPDF(browser, pdfFile);
+                // });
             });
         });
         break;
     }
     case actions.addBill: {
         login().then(browser => {
-            createBill(browser).then(_ => {
-                downloadLastBill(browser).then(pdfFile => {
-                    editPDF(browser, pdfFile);
-                });
+            createBill(browser, silent).then(_ => {
+                // downloadLastBill(browser).then(pdfFile => {
+                //     editPDF(browser, pdfFile);
+                // });
             });
         });
         break;

@@ -1,11 +1,11 @@
 import {pages} from "../../pages.js";
 import * as puppeteer from "puppeteer";
 import moment from "moment";
-import {selectOptionByText} from "../../helpers/selector.js";
+import {clickAndWaitForNavigation, selectOptionByText} from "../../helpers/selector.js";
 import {clearTextField} from "../../helpers/text.js";
 import {umowa} from "../../contacts.js";
 
-export async function createContract(browser: puppeteer.Browser): Promise<boolean> {
+export async function createContract(browser: puppeteer.Browser, silent: boolean): Promise<boolean> {
 	const page = await browser.newPage();
 
 	await page.goto(pages.contractsAddURL);
@@ -39,10 +39,7 @@ export async function createContract(browser: puppeteer.Browser): Promise<boolea
 		await page.type('#contract_of_mandate_form_subjectOfContract', process.env.TS_CONTRACT_SUBJECT_ZLECENIE);
 	}
 
-	await Promise.all([
-		page.waitForNavigation(),
-		// page.click('#contract_work_form_submit'),
-	]);
+	await clickAndWaitForNavigation(page, 'contract_work_form_submit', silent);
 
 	return true;
 }

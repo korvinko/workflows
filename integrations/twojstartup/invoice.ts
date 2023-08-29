@@ -2,9 +2,9 @@ import {pages} from "../../pages.js";
 import * as puppeteer from "puppeteer";
 import moment from "moment";
 import {getCurrencyBuyRate} from "../nbpl/rates.js";
-import {selectOptionByText} from "../../helpers/selector.js";
+import {clickAndWaitForNavigation, selectOptionByText} from "../../helpers/selector.js";
 
-export async function createInvoice(browser: puppeteer.Browser): Promise<boolean> {
+export async function createInvoice(browser: puppeteer.Browser, silent: boolean): Promise<boolean> {
 	const page = await browser.newPage();
 
 	await page.goto(pages.invoiceAddURL);
@@ -68,10 +68,7 @@ export async function createInvoice(browser: puppeteer.Browser): Promise<boolean
 	await page.keyboard.press('Backspace'); // delete the selected text
 	await page.type('#sales_invoice_proforma_form_products_0_amount', "1");
 
-	await Promise.all([
-		// page.click('#sales_invoice_proforma_form_submit'),
-		page.waitForNavigation(),
-	]);
+	await clickAndWaitForNavigation(page, '#sales_invoice_proforma_form_submit', silent);
 
 	return true;
 }
