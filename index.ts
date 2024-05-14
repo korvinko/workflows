@@ -6,6 +6,7 @@ import {editPDF} from "./integrations/sejda/editPdf.js";
 import {login} from "./integrations/twojstartup/login.js";
 import {createBill, downloadLastBill} from "./integrations/twojstartup/bill.js";
 import {fetchGptResponse} from "./integrations/openai/generateCode.js";
+import {fetchGroqResponse} from "./integrations/groq/generateCode.js";
 import {generatePDFFromHTML} from "./integrations/pdf/generatePdf.js";
 import {createInvoice, downloadLastInvoice} from "./integrations/twojstartup/invoice.js";
 
@@ -58,6 +59,13 @@ switch (task) {
     case actions.generateCode: {
         // Initialize an empty conversation
         fetchGptResponse(process.env.TS_PROMT_TEXT).then(v => {
+            console.log(v)
+        });
+        break;
+    }
+    case actions.generateCodeGroq: {
+        // Initialize an empty conversation
+        fetchGroqResponse(process.env.TS_PROMT_TEXT).then(v => {
             console.log(v)
         });
         break;

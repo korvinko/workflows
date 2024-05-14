@@ -3,5 +3,6 @@ export enum actions {
 	addContract = "addContract",
 	addBill = "addBill",
 	generateCode = "generateCode",
+	generateCodeGroq = "generateCodeGroq",
 	printPdf = "printPdf",
 }
